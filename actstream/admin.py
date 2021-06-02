@@ -21,9 +21,9 @@ class ActionAdmin(ModelAdmin):
 
 class FollowAdmin(ModelAdmin):
     list_display = (
-    'issuer', '__str__', 'user', 'follow_object', 'actor_only', 'started')
+    '__str__', 'user', 'follow_object', 'actor_only', 'started')
     list_editable = ('user',)
-    list_filter = ('issuer', 'user', 'started',)
+    list_filter = ('user', 'started',)
     raw_id_fields = ('user', 'content_type')
 
 
