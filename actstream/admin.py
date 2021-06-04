@@ -16,7 +16,7 @@ class ActionAdmin(ModelAdmin):
     date_hierarchy = 'timestamp'
     list_display = (
     'issuer', '__str__', 'actor', 'verb', 'target', 'action_object',
-    time_seconds)
+    'time_seconds')
     list_editable = ('verb',)
     list_filter = ('issuer', 'timestamp', 'verb')
     raw_id_fields = ('actor_content_type', 'target_content_type',
