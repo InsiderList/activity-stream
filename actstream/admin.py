@@ -7,12 +7,13 @@ try:
 except ImportError:
     ModelAdmin = admin.ModelAdmin
 
-def time_seconds(self, obj):
-    return obj.timestamp.strftime("%d %b %Y %H:%M:%S")
-time_seconds.admin_order_field = 'timestamp'
-time_seconds.short_description = 'Precise Time'
-
 class ActionAdmin(ModelAdmin):
+
+    def time_seconds(self, obj):
+        return obj.timestamp.strftime("%d %b %Y %H:%M:%S")
+    time_seconds.admin_order_field = 'timestamp'
+    time_seconds.short_description = 'Precise Time'
+
     date_hierarchy = 'timestamp'
     list_display = (
     'issuer', '__str__', 'actor', 'verb', 'target', 'action_object',
