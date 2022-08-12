@@ -173,5 +173,3 @@ or from the ``GenericRelation`` on any actionable model instance.
     Action.objects.mystream(user_instance, 'commented')
     # OR
     user_instance.actor_actions.mystream('commented')
-
-

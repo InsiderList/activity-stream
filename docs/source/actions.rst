@@ -48,4 +48,3 @@ Actions are stored in a single table in the database using `Django's ContentType
 and `GenericForeignKeys <https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericForeignKey>`_ to create associations with different models in your project.
 
 Actions are generated in a manner independent of how you wish to query them so they can be queried later to generate different streams based on all possible associations.
-
