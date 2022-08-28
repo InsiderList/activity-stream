@@ -16,7 +16,7 @@ from django.contrib.postgres.fields import JSONField
 from django_multitenant.mixins import TenantModelMixin
 from insiderlist.issuers.mixins import IssuerAbstractModel
 
-from insiderlist.utils.models.mixins import CustomAbstractModel
+from utils.mixins import CustomAbstractModel
 
 
 class Follow(models.Model):
