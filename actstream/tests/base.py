@@ -41,8 +41,8 @@ class ActivityBaseTestCase(TestCase):
 
     def setUp(self):
         self.UserModel = get_user_model()
-        self.user_ct = ContentType.objects.get_for_model(self.User)
-        register(self.User)
+        self.user_ct = ContentType.objects.get_for_model(self.UserModel)
+        register(self.UserModel)
         for model in self.actstream_models:
             register(model)
 

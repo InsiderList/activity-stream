@@ -11,7 +11,7 @@ class GFKManagerTestCase(TestCase):
 
     def setUp(self):
         UserModel = get_user_model()
-        self.user_ct = ContentType.objects.get_for_model(User)
+        self.user_ct = ContentType.objects.get_for_model(UserModel)
         self.group_ct = ContentType.objects.get_for_model(Group)
         self.group, _ = Group.objects.get_or_create(name='CoolGroup')
         self.user1, _ = UserModel.objects.get_or_create(username='admin')
