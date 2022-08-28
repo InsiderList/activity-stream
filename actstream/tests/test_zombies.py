@@ -14,11 +14,11 @@ class ZombieTest(ActivityBaseTestCase):
     zombie = 1
 
     def setUp(self):
-        self.User = get_user_model()
+        self.UserModel = get_user_model()
         super(ZombieTest, self).setUp()
         settings.DEBUG = True
 
-        player_generator = lambda n, count: [self.User.objects.create(
+        player_generator = lambda n, count: [self.UserModel.objects.create(
             username='%s%d' % (n, i)) for i in range(count)]
 
         self.humans = player_generator('human', self.human)
