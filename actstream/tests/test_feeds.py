@@ -1,7 +1,9 @@
 from django.conf import settings
-from django.utils.feedgenerator import rfc3339_date
+from django.contrib.auth import get_user_model
 
 from actstream.tests import base
+
+UserModel = get_user_model()
 
 
 class FeedsTestCase(base.DataTestCase):
@@ -37,8 +39,8 @@ class FeedsTestCase(base.DataTestCase):
 
     def test_model_feed(self):
         expected = [
-            'Activity feed from %s' % self.User.__name__,
-            'Public activities of %s' % self.User.__name__,
+            'Activity feed from %s' % self.UserModel.__name__,
+            'Public activities of %s' % self.UserModel.__name__,
             'admin commented on CoolGroup %s ago' % self.timesince,
             'Two started following CoolGroup %s ago' % self.timesince,
             'Two joined CoolGroup %s ago' % self.timesince,

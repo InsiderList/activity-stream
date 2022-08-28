@@ -53,11 +53,11 @@ class ZombieTest(ActivityBaseTestCase):
         return result
 
     def test_query_count(self):
-        queryset = model_stream(self.User)
+        queryset = model_stream(self.UserModel)
         result = self.check_query_count(queryset)
         self.assertEqual(len(result), 10)
 
     def test_query_count_sliced(self):
-        queryset = model_stream(self.User)[:5]
+        queryset = model_stream(self.UserModel)[:5]
         result = self.check_query_count(queryset)
         self.assertEqual(len(result), 5)

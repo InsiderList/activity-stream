@@ -169,7 +169,7 @@ or from the ``GenericRelation`` on any actionable model instance.
     from django.contrib.auth.models import User
     from actstream.models import Action
 
-    user_instance = User.objects.all()[0]
+    user_instance = UserModel.objects.all()[0]
     Action.objects.mystream(user_instance, 'commented')
     # OR
     user_instance.actor_actions.mystream('commented')

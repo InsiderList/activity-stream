@@ -9,12 +9,13 @@ from actstream.tests.base import render, ActivityBaseTestCase
 from actstream.settings import USE_JSONFIELD
 
 from testapp.models import Abstract, Unregistered
-
+from django.contrib.auth import get_user_model
+UserModel = get_user_model()
 
 class TestAppTests(ActivityBaseTestCase):
     def setUp(self):
         super(TestAppTests, self).setUp()
-        self.user = self.User.objects.create(username='test')
+        self.user = self.UserModel.objects.create(username='test')
         action.send(self.user, verb='was created')
 
     def test_accessor(self):
@@ -63,7 +64,7 @@ class TestAppTests(ActivityBaseTestCase):
     def test_customuser(self):
         from testapp.models import MyUser
 
-        self.assertEqual(self.User, MyUser)
+        self.assertEqual(self.UserModel, MyUser)
         self.assertEqual(self.user.get_full_name, 'test')
 
     if USE_JSONFIELD:
