@@ -12,7 +12,7 @@ from django.utils.timezone import now
 from actstream import settings as actstream_settings
 from actstream.managers import FollowManager
 
-from django.contrib.postgres.fields import JSONField
+from django.db.models import JSONField
 from django_multitenant.mixins import TenantModelMixin
 from insiderlist.issuers.mixins import IssuerAbstractModel
 
