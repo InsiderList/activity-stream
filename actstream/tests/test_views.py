@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from urllib.parse import urlencode
 
 from django.urls import reverse
@@ -41,7 +42,7 @@ class ViewsTest(DataTestCase):
         self.assertRaises(models.Follow.DoesNotExist, models.Follow.objects.get, **follow)
 
         response = self.get('actstream_unfollow', self.user_ct.pk, self.user3.pk, next='/redirect/')
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertTrue(response['Location'].endswith('/redirect/'))
 
     def test_follow_unfollow_with_flag(self):
@@ -62,7 +63,7 @@ class ViewsTest(DataTestCase):
         self.assertRaises(models.Follow.DoesNotExist, models.Follow.objects.get, **follow)
 
         response = self.get('actstream_unfollow', self.user_ct.pk, self.user3.pk, 'watching', next='/redirect/')
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertTrue(response['Location'].endswith('/redirect/'))
 
     def test_stream(self):
