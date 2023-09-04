@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.utils.translation import activate, get_language
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from actstream.actions import follow, unfollow
 from actstream.models import (Action, Follow, model_stream, user_stream,

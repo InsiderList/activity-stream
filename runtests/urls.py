@@ -1,14 +1,14 @@
 import os
 from django.contrib import admin
 from django.views.static import serve
-from django.conf.urls import include, url
+from django.urls import include, path, re_path
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^media/(?P<path>.*)$', serve,
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^media/(?P<path>.*)$', serve,
         {'document_root': os.path.join(os.path.dirname(__file__), 'media')}),
-    url(r'auth/', include('django.contrib.auth.urls')),
-    url(r'testapp/', include('testapp.urls')),
-    url(r'', include('actstream.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
+    path('testapp/', include('testapp.urls')),
+    path('', include('actstream.urls')),
 ]

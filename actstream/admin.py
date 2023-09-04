@@ -9,10 +9,12 @@ except ImportError:
 
 class ActionAdmin(ModelAdmin):
 
+    @admin.display(
+        description='Precise Time',
+        ordering='timestamp',
+    )
     def time_seconds(self, obj):
         return obj.timestamp.strftime("%d %b %Y %H:%M:%S")
-    time_seconds.admin_order_field = 'timestamp'
-    time_seconds.short_description = 'Precise Time'
 
     date_hierarchy = 'timestamp'
     list_display = (
