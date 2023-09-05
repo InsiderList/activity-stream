@@ -1,13 +1,10 @@
 # -*- coding: utf-8  -*-
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
 from django.urls import reverse
-from django.utils.translation import activate, get_language
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, get_language, gettext_lazy as _
 
 from actstream.actions import follow, unfollow
-from actstream.models import (Action, Follow, model_stream, user_stream,
-                              actor_stream, following, followers)
+from actstream.models import (Action, actor_stream, Follow, followers, following, model_stream, user_stream)
 from actstream.signals import action
 from actstream.tests.base import DataTestCase, render
 
@@ -151,7 +148,10 @@ class ActivityTestCase(DataTestCase):
     def test_y_no_orphaned_follows(self):
         follows = Follow.objects.count()
         self.user2.delete()
-        self.assertEqual(follows - 1, Follow.objects.count())
+        # 2 Follow objects are deleted:
+        # * "User2 follows group" because of the on_delete=models.CASCADE
+        # * "User1 follows User2" because of the pre_delete signal
+        self.assertEqual(follows - 2, Follow.objects.count())
 
     def test_z_no_orphaned_actions(self):
         actions = self.user1.actor_actions.count()

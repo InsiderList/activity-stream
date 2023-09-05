@@ -37,8 +37,8 @@ Forked from https://github.com/justquick/django-activity-stream to add compatibi
 Django Activity Stream
 ======================
 
-.. image:: https://travis-ci.org/justquick/django-activity-stream.svg?branch=master
-    :target: https://travis-ci.org/justquick/django-activity-stream
+.. image:: https://github.com/justquick/django-activity-stream/actions/workflows/workflow.yaml/badge.svg
+    :target: https://github.com/justquick/django-activity-stream/actions/workflows/workflow.yaml
 
 .. image:: https://badges.gitter.im/django-activity-stream/Lobby.svg
    :alt: Join the chat at https://gitter.im/django-activity-stream/Lobby
@@ -53,8 +53,6 @@ Django Activity Stream
 .. image:: https://img.shields.io/pypi/v/django-activity-stream.svg
     :target: https://pypi.python.org/pypi/django-activity-stream
 
-.. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjustquick%2Fdjango-activity-stream.svg?type=shield
-   :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fjustquick%2Fdjango-activity-stream?ref=badge_shiel
 
 
 What is Django Activity Stream?
@@ -90,8 +88,3 @@ Contributors
 This project exists thanks to all the people who contribute!
 
 .. image:: https://opencollective.com/django-activity-stream/contributors.svg?width=890&button=false
-
-Sponsors
-========
-
- `Get supported django-activity-stream with the Tidelift Subscription <https://tidelift.com/subscription/pkg/pypi-django-activity-stream?utm_source=pypi-django-activity-stream&utm_medium=referral&utm_campaign=readme>`_

@@ -170,7 +170,7 @@ class Action(IssuerAbstractModel, CustomAbstractModel, TenantModelMixin, models.
 
     def get_absolute_url(self):
         return reverse(
-            'actstream.views.detail', [self.pk])
+            'actstream_detail', args=[self.pk])
 
 
 # convenient accessors

@@ -1,4 +1,5 @@
 from datetime import datetime
+from unittest import skipUnless
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -8,14 +9,14 @@ from actstream.models import Action, actor_stream, model_stream
 from actstream.tests.base import render, ActivityBaseTestCase
 from actstream.settings import USE_JSONFIELD
 
-from testapp.models import Abstract, Unregistered
-from django.contrib.auth import get_user_model
-UserModel = get_user_model()
+
+from testapp.models import MyUser, Abstract, Unregistered
+
 
 class TestAppTests(ActivityBaseTestCase):
     def setUp(self):
-        super(TestAppTests, self).setUp()
-        self.user = self.UserModel.objects.create(username='test')
+        super().setUp()
+        self.user = self.User.objects.create(username='test')
         action.send(self.user, verb='was created')
 
     def test_accessor(self):
@@ -62,19 +63,18 @@ class TestAppTests(ActivityBaseTestCase):
         )
 
     def test_customuser(self):
-        from testapp.models import MyUser
 
-        self.assertEqual(self.UserModel, MyUser)
-        self.assertEqual(self.user.get_full_name, 'test')
+        self.assertEqual(self.User, MyUser)
+        self.assertEqual(self.user.get_full_name(), 'test')
 
-    if USE_JSONFIELD:
-        def test_jsonfield(self):
-            action.send(
-                self.user, verb='said', text='foobar',
-                tags=['sayings'],
-                more_data={'pk': self.user.pk}
-            )
-            newaction = Action.objects.filter(verb='said')[0]
-            self.assertEqual(newaction.data['text'], 'foobar')
-            self.assertEqual(newaction.data['tags'], ['sayings'])
-            self.assertEqual(newaction.data['more_data'], {'pk': self.user.pk})
+    @skipUnless(USE_JSONFIELD, 'Django jsonfield disabled')
+    def test_jsonfield(self):
+        action.send(
+            self.user, verb='said', text='foobar',
+            tags=['sayings'],
+            more_data={'pk': self.user.pk}
+        )
+        newaction = Action.objects.filter(verb='said')[0]
+        self.assertEqual(newaction.data['text'], 'foobar')
+        self.assertEqual(newaction.data['tags'], ['sayings'])
+        self.assertEqual(newaction.data['more_data'], {'pk': self.user.pk})

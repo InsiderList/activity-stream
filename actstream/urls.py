@@ -1,46 +1,58 @@
-from django.urls import path, re_path
+
+from django.urls import re_path, include, path
 
 from actstream import feeds, views
+from actstream.settings import USE_DRF
 
+urlpatterns = []
 
-urlpatterns = [
+if USE_DRF:
+    from actstream.drf.urls import router
+
+    urlpatterns += [
+        path('api/', include(router.urls)),
+    ]
+
+urlpatterns += [
     # User feeds
-    path('feed/', feeds.UserActivityFeed(), name='actstream_feed'),
-    path('feed/atom/', feeds.AtomUserActivityFeed(),
-        name='actstream_feed_atom'),
-    path('feed/json/', feeds.UserJSONActivityFeed.as_view(),
-        name='actstream_feed_json'),
+
+    re_path(r'^feed/$', feeds.UserActivityFeed(), name='actstream_feed'),
+    re_path(r'^feed/atom/$', feeds.AtomUserActivityFeed(),
+            name='actstream_feed_atom'),
+    re_path(r'^feed/json/$', feeds.UserJSONActivityFeed.as_view(),
+            name='actstream_feed_json'),
 
     # Model feeds
-    path(
-        'feed/<str:content_type_id>/',
+    re_path(
+        r'^feed/(?P<content_type_id>[^/]+)/$',
         feeds.ModelActivityFeed(),
         name='actstream_model_feed'
     ),
-    path(
-        'feed/<str:content_type_id>/atom/',
+    re_path(
+        r'^feed/(?P<content_type_id>[^/]+)/atom/$',
         feeds.AtomModelActivityFeed(),
         name='actstream_model_feed_atom'
     ),
-    path(
-        'feed/<str:content_type_id>/json/',
+    re_path(
+        r'^feed/(?P<content_type_id>[^/]+)/json/$',
         feeds.ModelJSONActivityFeed.as_view(),
         name='actstream_model_feed_json'
     ),
 
     # Object feeds
-    path(
-        'feed/<str:content_type_id>/<str:object_id>/',
+
+    re_path(
+        r'^feed/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
         feeds.ObjectActivityFeed(),
         name='actstream_object_feed'
     ),
-    path(
-        'feed/<str:content_type_id>/<str:object_id>/atom/',
+    re_path(
+        r'^feed/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/atom/$',
         feeds.AtomObjectActivityFeed(),
         name='actstream_object_feed_atom'
     ),
-    path(
-        'feed/<str:content_type_id>/<str:object_id>/json/',
+    re_path(
+        r'^feed/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/json/$',
         feeds.ObjectJSONActivityFeed.as_view(),
         name='actstream_object_feed_json'
     ),
@@ -81,29 +93,31 @@ urlpatterns = [
         views.following,
         name='actstream_following'
     ),
-    path(
-        'actors/<str:content_type_id>/<str:object_id>/',
+
+    re_path(
+        r'^actors/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
         views.actor,
         name='actstream_actor'
     ),
-    path(
-        'actors/<str:content_type_id>/',
+    re_path(
+        r'^actors/(?P<content_type_id>[^/]+)/$',
         views.model,
         name='actstream_model'
     ),
 
-    path(
-        'detail/<str:action_id>/',
+
+    re_path(
+        r'^detail/(?P<action_id>[^/]+)/$',
         views.detail,
         name='actstream_detail'
     ),
-    path(
-        '<str:username>/',
+    re_path(
+        r'^(?P<username>[^/]+)/$',
         views.user,
         name='actstream_user'
     ),
-    path(
-        '',
+    re_path(
+        r'^$',
         views.stream,
         name='actstream'
     ),
