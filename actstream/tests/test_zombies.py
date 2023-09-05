@@ -14,9 +14,10 @@ class ZombieTest(ActivityBaseTestCase):
     zombie = 1
 
     def setUp(self):
-        self.User = get_user_model()
+        self.UserModel = get_user_model()
         super(ZombieTest, self).setUp()
         settings.DEBUG = True
+
 
         def player_generator(n, count):
             return [self.User.objects.create(username='%s%d' % (n, i))
@@ -54,11 +55,11 @@ class ZombieTest(ActivityBaseTestCase):
         return result
 
     def test_query_count(self):
-        queryset = model_stream(self.User)
+        queryset = model_stream(self.UserModel)
         result = self.check_query_count(queryset)
         self.assertEqual(len(result), 10)
 
     def test_query_count_sliced(self):
-        queryset = model_stream(self.User)[:5]
+        queryset = model_stream(self.UserModel)[:5]
         result = self.check_query_count(queryset)
         self.assertEqual(len(result), 5)

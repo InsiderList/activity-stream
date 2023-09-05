@@ -10,14 +10,14 @@ from actstream.tests.base import LTE
 class GFKManagerTestCase(TestCase):
 
     def setUp(self):
-        User = get_user_model()
-        self.user_ct = ContentType.objects.get_for_model(User)
+        UserModel = get_user_model()
+        self.user_ct = ContentType.objects.get_for_model(UserModel)
         self.group_ct = ContentType.objects.get_for_model(Group)
         self.group, _ = Group.objects.get_or_create(name='CoolGroup')
-        self.user1, _ = User.objects.get_or_create(username='admin')
-        self.user2, _ = User.objects.get_or_create(username='Two')
-        self.user3, _ = User.objects.get_or_create(username='Three')
-        self.user4, _ = User.objects.get_or_create(username='Four')
+        self.user1, _ = UserModel.objects.get_or_create(username='admin')
+        self.user2, _ = UserModel.objects.get_or_create(username='Two')
+        self.user3, _ = UserModel.objects.get_or_create(username='Three')
+        self.user4, _ = UserModel.objects.get_or_create(username='Four')
         Action.objects.get_or_create(
             actor_content_type=self.user_ct,
             actor_object_id=self.user1.id,

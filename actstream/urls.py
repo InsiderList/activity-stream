@@ -1,3 +1,4 @@
+
 from django.urls import re_path, include, path
 
 from actstream import feeds, views
@@ -14,6 +15,7 @@ if USE_DRF:
 
 urlpatterns += [
     # User feeds
+
     re_path(r'^feed/$', feeds.UserActivityFeed(), name='actstream_feed'),
     re_path(r'^feed/atom/$', feeds.AtomUserActivityFeed(),
             name='actstream_feed_atom'),
@@ -38,6 +40,7 @@ urlpatterns += [
     ),
 
     # Object feeds
+
     re_path(
         r'^feed/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
         feeds.ObjectActivityFeed(),
@@ -90,6 +93,7 @@ urlpatterns += [
         views.following,
         name='actstream_following'
     ),
+
     re_path(
         r'^actors/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
         views.actor,
@@ -100,6 +104,7 @@ urlpatterns += [
         views.model,
         name='actstream_model'
     ),
+
 
     re_path(
         r'^detail/(?P<action_id>[^/]+)/$',

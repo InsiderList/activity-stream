@@ -1,1 +1,1 @@
-from . import my_model  # NOQA
+from . import my_model  # noqa # nosonar

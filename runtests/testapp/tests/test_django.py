@@ -9,6 +9,7 @@ from actstream.models import Action, actor_stream, model_stream
 from actstream.tests.base import render, ActivityBaseTestCase
 from actstream.settings import USE_JSONFIELD
 
+
 from testapp.models import MyUser, Abstract, Unregistered
 
 
@@ -62,6 +63,7 @@ class TestAppTests(ActivityBaseTestCase):
         )
 
     def test_customuser(self):
+
         self.assertEqual(self.User, MyUser)
         self.assertEqual(self.user.get_full_name(), 'test')
 

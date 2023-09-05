@@ -1,3 +1,39 @@
+FORK
+======================
+
+|Quality Gate Status| |Security Rating| |Reliability Rating|
+
+|Lines of Code| |Duplicated Lines (%)|
+
+.. |Quality Gate Status| image:: https://sonarcloud.io/api/project_badges/measure?project=InsiderList_django-activity-stream&metric=alert_status
+   :target: https://sonarcloud.io/dashboard?id=InsiderList_django-activity-stream
+.. |Security Rating| image:: https://sonarcloud.io/api/project_badges/measure?project=InsiderList_django-activity-stream&metric=security_rating
+.. |Reliability Rating| image:: https://sonarcloud.io/api/project_badges/measure?project=InsiderList_django-activity-stream&metric=reliability_rating
+   :target: https://sonarcloud.io/dashboard?id=InsiderList_django-activity-stream
+.. |Lines of Code| image:: https://sonarcloud.io/api/project_badges/measure?project=InsiderList_django-activity-stream&metric=ncloc
+   :target: https://sonarcloud.io/dashboard?id=InsiderList_django-activity-stream
+.. |Duplicated Lines (%)| image:: https://sonarcloud.io/api/project_badges/measure?project=InsiderList_django-activity-stream&metric=duplicated_lines_density
+   :target: https://sonarcloud.io/dashboard?id=InsiderList_django-activity-stream
+
+Forked from https://github.com/justquick/django-activity-stream to add compatibility with InsiderList.
+
+28.06.20
+
+``admin.py``
+
+- Added ``timestamp`` to ``list_display``
+
+``actions.py``
+
+- Added ``issuer`` to  ``newaction``
+- Removed conditional use of ``settings.USE_JSONFIELD``; ``newaction.data`` should always be ``JSON``
+
+``models.py``
+
+- Added ``data`` JSONField to ``Action`` model
+- Corrected timestamp to use ``auto_now_add``
+
+
 Django Activity Stream
 ======================
 

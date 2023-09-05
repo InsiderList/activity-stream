@@ -12,6 +12,12 @@ from django.utils.timezone import now
 from actstream import settings as actstream_settings
 from actstream.managers import FollowManager
 
+from django.db.models import JSONField
+from django_multitenant.mixins import TenantModelMixin
+from insiderlist.issuers.mixins import IssuerAbstractModel
+
+from utils.mixins import CustomAbstractModel
+
 
 class Follow(models.Model):
     """
@@ -42,7 +48,7 @@ class Follow(models.Model):
         return '{} -> {} : {}'.format(self.user, self.follow_object, self.flag)
 
 
-class Action(models.Model):
+class Action(IssuerAbstractModel, CustomAbstractModel, TenantModelMixin, models.Model):
     """
     Action model describing the actor acting out a verb (on an optional
     target).
@@ -71,6 +77,8 @@ class Action(models.Model):
         <a href="http://oebfare.com/">brosner</a> commented on <a href="http://github.com/pinax/pinax">pinax/pinax</a> 2 hours ago
 
     """
+    data = JSONField(blank=True, null=True)
+
     actor_content_type = models.ForeignKey(
         ContentType, related_name='actor',
         on_delete=models.CASCADE, db_index=True
@@ -107,7 +115,7 @@ class Action(models.Model):
         'action_object_object_id'
     )
 
-    timestamp = models.DateTimeField(default=now, db_index=True)
+    timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
 
     public = models.BooleanField(default=True, db_index=True)
 

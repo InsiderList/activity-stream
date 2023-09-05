@@ -56,7 +56,7 @@ class AbstractActivityStream:
         if not obj:
             url = reverse('actstream_detail', None, (action.pk,))
         elif hasattr(obj, 'get_absolute_url'):
-            url = obj.get_absolute_url()
+            url = obj.get_absolute_url
         else:
             ctype = ContentType.objects.get_for_model(obj)
             url = reverse('actstream_actor', None, (ctype.pk, obj.pk))
@@ -316,7 +316,7 @@ class UserActivityFeed(UserActivityMixin, ActivityStreamsBaseFeed):
         if not user:
             return reverse('actstream')
         if hasattr(user, 'get_absolute_url'):
-            return user.get_absolute_url()
+            return user.get_absolute_url
         ctype = ContentType.objects.get_for_model(user)
         return reverse('actstream_actor', None, (ctype.pk, user.pk))
 

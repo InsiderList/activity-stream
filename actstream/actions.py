@@ -102,7 +102,7 @@ def is_following(user, obj, flag=''):
     return qs.exists()
 
 
-def action_handler(verb, **kwargs):
+def action_handler(verb, commit=True, **kwargs):
     """
     Handler function to create Action instance upon action signal call.
     """
@@ -115,6 +115,7 @@ def action_handler(verb, **kwargs):
         verb = verb._proxy____args[0]
 
     newaction = apps.get_model('actstream', 'action')(
+        issuer=kwargs.pop('issuer', None),
         actor_content_type=ContentType.objects.get_for_model(actor),
         actor_object_id=actor.pk,
         verb=str(verb),
@@ -127,10 +128,11 @@ def action_handler(verb, **kwargs):
         obj = kwargs.pop(opt, None)
         if obj is not None:
             check(obj)
-            setattr(newaction, '%s_object_id' % opt, obj.pk)
-            setattr(newaction, '%s_content_type' % opt,
-                    ContentType.objects.get_for_model(obj))
-    if settings.USE_JSONFIELD and len(kwargs):
+            setattr(newaction, f'{opt}_object_id', obj.pk)
+            setattr(newaction, f'{opt}_content_type', ContentType.objects.get_for_model(obj))
+
+    if len(kwargs):
         newaction.data = kwargs
-    newaction.save(force_insert=True)
+    if commit:
+        newaction.save(force_insert=True)
     return newaction

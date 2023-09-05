@@ -136,6 +136,3 @@ They are based on the Django syndication framework and you can subclass :class:`
             </activity:target>
         </entry>
     </feed>
-
-
-

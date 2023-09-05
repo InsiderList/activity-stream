@@ -27,6 +27,7 @@ DATABASES = {
     }
 }
 
+
 if getenv('GITHUB_WORKFLOW', False):
     DATABASE_ENGINE = getenv('DATABASE_ENGINE', 'sqlite')
     if 'mysql' in DATABASE_ENGINE:
